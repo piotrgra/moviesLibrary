@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 2em 0;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+  color: #707070;
+  font-weight: 700;
+  padding: 0;
+}
+
+nav li {
+  margin-top: 1rem;
+}
+
+nav li:hover,
+nav li:focus {
+  cursor: pointer;
+  color: #1792d2;
+}
+
+.subtitle {
+  font-weight: 700;
+  color: #1792d2;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+@media (min-width: 675px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  nav ul {
+    flex-direction: row;
+  }
+  nav li {
+    margin: 0 2rem;
+  }
+}
