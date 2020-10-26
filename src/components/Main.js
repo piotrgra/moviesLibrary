@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import "./Main.css";
 
 class Main extends Component {
-  onAddLibrary = () => {
+  onAddLibrary = async () => {
     if (typeof this.props.onAddLibrary === "function") {
-      this.props.onAddLibrary(this.props.movie.imdbID);
+      await this.props.onAddLibrary(this.props.movie.imdbID);
     }
   };
 
@@ -18,31 +19,22 @@ class Main extends Component {
   render() {
     const { movie } = this.props;
     return (
-      <div className="main">
-        <div className="movie">
-          <h3>{movie.Title}</h3>
-          <h4>{movie.Year}</h4>
-          <div className="movieMain">
+      <div className="movie">
+        <div className="movieCard">
+          <div className="movieLeft">
             <div className="moviePoster">
-              <img src={movie.Poster} alt="" />
+              <img src={movie.Poster} alt={movie.Title} />
             </div>
-            {this.props.onAddLibrary ? (
-              <div className="movieActions">
-                <p>
-                  <strong onClick={this.onAddLibrary}>
-                    Dodaj do ulubionych
-                  </strong>
-                </p>
-              </div>
-            ) : (
-              <div className="movieActions">
-                <p>
-                  <strong onClick={this.onRemoveLibrary}>
-                    Dodaj do ulubionych
-                  </strong>
-                </p>
-              </div>
-            )}
+          </div>
+          <div className="movieRight">
+            <div className="movieTitle">
+              <h3>{movie.Title}</h3>
+            </div>
+            <div className="movieActions" onClick={this.onAddLibrary}>
+              <p className="favouriteButton">
+                <FavoriteIcon /> Dodaj do biblioteki
+              </p>
+            </div>
           </div>
         </div>
       </div>

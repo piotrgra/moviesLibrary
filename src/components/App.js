@@ -4,26 +4,32 @@ import Footer from "./Footer";
 import Home from "./Home";
 import Library from "./Library";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+
 const API_KEY = "685a6224";
+
 class App extends Component {
   state = {
     movies: "",
     library: [],
     search: "",
+    rating: [],
+    loading: true,
   };
 
-  fetchMovies = async (title = "harry") => {
-    await fetch("http://www.omdbapi.com/?s=" + title + "&apikey=" + API_KEY)
+  fetchMovies = (title = "harry") => {
+    fetch("http://www.omdbapi.com/?s=" + title + "&apikey=" + API_KEY)
       .then((respons) => respons.json())
       .then((data) => {
         this.setState({
           movies: data.Search,
+          loading: false,
         });
       });
   };
 
-  fetchMoviesWithId = async (imdbId) => {
-    await fetch("http://www.omdbapi.com/?i=" + imdbId + "&apikey=" + API_KEY)
+  fetchMoviesWithId = (imdbId) => {
+    fetch("http://www.omdbapi.com/?i=" + imdbId + "&apikey=" + API_KEY)
       .then((respons) => respons.json())
       .then((data) => {
         this.setState({
@@ -33,13 +39,16 @@ class App extends Component {
   };
 
   handleAddLibrary = (movieId) => {
-    if (this.state.library.length > 0) {
-      this.state.library.filter((movie) => {
-        if (movie.imdbID !== movieId) {
-          this.fetchMoviesWithId(movieId);
-        }
-      });
-    } else {
+    //sprawdzanie czy nie ma juz filmu w state
+    let test = true;
+    this.state.library.map((lib) => {
+      if (lib.imdbID === movieId) {
+        test = false;
+      }
+      return null;
+    });
+
+    if (test) {
       this.fetchMoviesWithId(movieId);
     }
   };
@@ -54,10 +63,25 @@ class App extends Component {
     });
   };
 
+  handleRating = (e, newValue) => {
+    let newRating = this.state.rating;
+    if (this.state.rating[e.target.name]) {
+      delete newRating[e.target.name];
+    }
+
+    this.setState({
+      rating: {
+        [e.target.name]: newValue,
+        ...newRating,
+      },
+    });
+  };
+
   handleSearch = (e) => {
     this.setState(
       {
         search: e.target.value,
+        loading: true,
       },
       function () {
         if (this.state.search.length >= 3) {
@@ -81,6 +105,8 @@ class App extends Component {
               <Library
                 movies={this.state.library}
                 handleRemoveLibrary={this.handleRemoveLibrary}
+                handleRating={this.handleRating}
+                rating={this.state.rating}
               />
             </Route>
             <Route path="/">
@@ -89,6 +115,7 @@ class App extends Component {
                 movies={this.state.movies}
                 handleSearch={this.handleSearch}
                 value={this.state.search}
+                loading={this.state.loading}
               />
             </Route>
           </Switch>

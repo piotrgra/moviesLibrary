@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Main from "./Main";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "./Home.css";
 
 class Home extends Component {
   render() {
-    const { movies, search } = this.props;
+    const { movies, search, loading } = this.props;
     return (
-      <div className="app">
+      <div className="home">
         <form>
           <input
             type="text"
@@ -16,17 +17,22 @@ class Home extends Component {
             onChange={(e) => this.props.handleSearch(e)}
           />
         </form>
-        {movies !== undefined && movies !== null && movies !== "" ? (
-          movies.map((movie, i) => (
-            <Main
-              movie={movie}
-              key={i}
-              onAddLibrary={this.props.handleAddLibrary}
-            />
-          ))
-        ) : (
-          <h2>Spinner</h2>
-        )}
+        <div className="main">
+          {!loading &&
+          movies !== undefined &&
+          movies !== null &&
+          movies !== "" ? (
+            movies.map((movie, i) => (
+              <Main
+                movie={movie}
+                key={i}
+                onAddLibrary={this.props.handleAddLibrary}
+              />
+            ))
+          ) : (
+            <CircularProgress className="loading" />
+          )}
+        </div>
       </div>
     );
   }

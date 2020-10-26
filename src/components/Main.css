@@ -1,50 +1,15 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.movieActions {
+  cursor: pointer;
 }
 
-.movie {
-  margin: 1rem;
-  text-align: center;
-  box-shadow: 5px 10px 18px #888888;
-  padding: 1rem;
-  max-height: 300px;
+.favouriteButton {
+  color: #143774;
+  font-size: 0.7em;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.moviePoster {
-  transition: transform 0.2s;
-}
-.moviePoster img {
-  max-width: 100px;
-  border-radius: 2%;
-  box-shadow: 5px 10px 18px #888888;
-}
-
-.moviePoster:hover {
+.favouriteButton:hover,
+.favouriteButton:focus {
   transform: scale(1.2);
-}
-
-.movieMain {
-  display: flex;
-  flex-direction: column;
-}
-
-.movieDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #707070;
-  font-size: 0.75rem;
-}
-
-@media (min-width: 675px) {
-  .main {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .movie {
-    max-width: 200px;
-  }
 }
