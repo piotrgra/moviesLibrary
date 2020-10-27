@@ -6,7 +6,7 @@ import Library from "./Library";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
-const API_KEY = "685a6224";
+const API_KEY = "";
 
 class App extends Component {
   state = {
@@ -18,7 +18,7 @@ class App extends Component {
   };
 
   fetchMovies = (title = "harry") => {
-    fetch("http://www.omdbapi.com/?s=" + title + "&apikey=" + API_KEY)
+    fetch("https://www.omdbapi.com/?s=" + title + "&apikey=" + API_KEY)
       .then((respons) => respons.json())
       .then((data) => {
         this.setState({
@@ -29,7 +29,7 @@ class App extends Component {
   };
 
   fetchMoviesWithId = (imdbId) => {
-    fetch("http://www.omdbapi.com/?i=" + imdbId + "&apikey=" + API_KEY)
+    fetch("https://www.omdbapi.com/?i=" + imdbId + "&apikey=" + API_KEY)
       .then((respons) => respons.json())
       .then((data) => {
         this.setState({
